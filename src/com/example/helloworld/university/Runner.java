@@ -1,6 +1,8 @@
 package com.example.helloworld.university;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Runner {
@@ -41,6 +43,9 @@ public class Runner {
         students.add(new Student("Kljl PF"));
         students.add(new Student("Ivanov OP"));
         students.add(new Student("JLJkj AO"));
+
+        sortExamplesWithStudents(students);
+
         biologyGroups.add(new Group("BG1", students));
 
         students = new ArrayList<>();
@@ -61,6 +66,32 @@ public class Runner {
 
     }
 
+    private static void sortExamplesWithStudents(List<Student> students) {
+        for (Student student : students) {
+            System.out.println(student.name);
+        }
+        System.out.println();
+        Collections.sort(students, new Comparator<Student>() {
+            @Override
+            public int compare(Student o1, Student o2) {
+                return o1.name.compareTo(o2.name);
+            }
+        });
+        //   (o1 ARGUMENT, o2 ARGUMENT) -> CODE_KOTORIY_NADO_VIPOLNIT
+        Collections.sort(students, (o1, o2) -> o1.name.compareTo(o2.name));
+
+
+        Collections.sort(students, (o1, o2) -> {
+            System.out.println("ololo sravnivaty");
+            return o1.name.compareTo(o2.name);
+        });
+
+
+        for (Student student : students) {
+            System.out.println(student.name);
+        }
+    }
+
     private static void printCountOfStudentsWithSurnameByFaculty(String surname) {
         for (Faculty faculty : faculties) {
             int count = 0;
@@ -71,7 +102,7 @@ public class Runner {
                     }
                 }
             }
-            System.out.println(faculty.name +" counting " + count);
+            System.out.println(faculty.name + " counting " + count);
         }
 
 

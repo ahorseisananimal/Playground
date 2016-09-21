@@ -14,7 +14,15 @@ public class AlarmManager {
                 continue;
             }
             int delay = Integer.parseInt(split[1]) * 1000;
-            new Thread(new AlarmRunnable(delay)).start();
+            new Thread(() -> {
+                System.out.println(getThreadName() + " Created with " + delay + "ms delay");
+                try {
+                    Thread.sleep(delay);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(getThreadName() + " It's time!");
+            }).start();
         }
     }
 
@@ -29,22 +37,4 @@ public class AlarmManager {
         return true;
     }
 
-    private static class AlarmRunnable implements Runnable {
-        private int delay;
-
-        public AlarmRunnable(int delay) {
-            this.delay = delay;
-        }
-
-        @Override
-        public void run() {
-            System.out.println(getThreadName() + " Created with " + delay + "ms delay");
-            try {
-                Thread.sleep(delay);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println(getThreadName() + " It's time!");
-        }
-    }
 }
